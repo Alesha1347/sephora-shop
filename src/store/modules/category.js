@@ -20,7 +20,7 @@ const category = {
             })
             .then(categories =>{
                 commit('SET_CATEGORIES', categories.data.rootCategories)
-                console.log(categories.data.rootCategories)
+                // console.log(categories.data.rootCategories)
             })
             .catch(err => console.log(err))
         }

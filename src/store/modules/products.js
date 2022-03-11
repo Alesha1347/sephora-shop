@@ -1,5 +1,5 @@
 // import axios from "axios"
-
+import api from '../../api'
 const products = {
     state:{
         products: [],
@@ -20,7 +20,6 @@ const products = {
             if(this.state.products.category){
                 query += '&categoryId=' + this.state.products.category
                 console.log(query)
-                console.log(this.$api)
             }
             // axios.get(query, {
             //     headers:{
@@ -28,10 +27,14 @@ const products = {
             //         'x-rapidapi-key': '446337a16dmshcd6301d94564933p13a1a5jsnbef0bf013d03'                
             //     }
             // })
-            this.$api.get(query)
+            api.get(query)
             .then(products =>{
                 commit('SET_PRODUCTS', products.data.products)
                 console.log(products.data.products)
+                console.log(api)
+                console.log(api + query)
+                console.log(api.url+ query)
+                
             })
             .catch(err => console.log(err))
         },

@@ -7,7 +7,7 @@
 <script>
 export default {
   mounted(){
-    console.log(this.$api)
+    // console.log(this.$api)
   }
 }
 </script>

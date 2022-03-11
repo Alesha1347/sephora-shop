@@ -20,7 +20,6 @@ components.forEach(component =>{
 })
 
 Vue.prototype.$api = api
-
 new Vue({
   router,
   store,
