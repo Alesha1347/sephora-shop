@@ -20,6 +20,6 @@ export default {
 }
 
 .body{
-  background-color: whitesmoke;
+  background-color: white;
 }
 </style>

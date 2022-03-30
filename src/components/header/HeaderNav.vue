@@ -1,39 +1,44 @@
 <template>
+<div class="d">
+
         <div class="navigation">
       <div class="header__inner-content"
-      v-for="(category, index) in CATEGORIES"
-        :key="index"
+      v-for="category in getCategories()"
+        :key="category.categoryId"
       >
-      <router-link :to="{name: 'products'}">
+      <router-link class="header__link-category" :to="{name: 'products'}">
       <div 
-      @click="SET_CATEGORY(category.categoryId)">
+      @click="setCategory(category.categoryId, category.displayName)"
+      @mouseenter="getChildCategories(category.categoryId)"
+      >
           {{ category.displayName }}
           </div>
-          <div></div>
       </router-link>
-      <!-- {{category}} -->
       </div>
       </div>
 
+    <div class="child__wrap"
+    @mouseleave="show=false"
+    >
+      <div class="child"
+      v-for="category in childCategories"
+      :key="category.categoryId"
+      >
+      <div class="child__name" 
+      v-if="show"
+      >{{ category.displayName }}</div>
+      </div>
+    </div>
+</div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 export default {
     data(){
-        return{
-//             CATEGORIES: [
-//                 'Brands',
-// 'Makeup',
-// 'Skincare',
-// 'Hair',
-// 'Fragrance',
-// 'Tools',
-// 'Bath',
-// 'Mini', 
-// 'Gifts',
-// 'Sale'
-// ]
+        return{ 
+            childCategories: [],
+            show: false
         }
     },
     computed:{
@@ -44,11 +49,31 @@ export default {
     methods:{
         ...mapActions({
             GET_CATEGORIES: 'category/GET_CATEGORIES',
-            SET_CATEGORY: 'products/SET_CATEGORY'
-        })
+            SET_CATEGORY: 'products/SET_CATEGORY',
+            SET_CATEGORY_NAME: 'category/SET_CATEGORY_NAME',
+            SET_CATEGORY_ID: 'category/SET_CATEGORY_ID'
+        }),
+        setCategory(categoryId, categoryName){
+            this.SET_CATEGORY(categoryId)
+            this.SET_CATEGORY_NAME(categoryName)
+            this.SET_CATEGORY_ID(categoryId)
+        },
+        getCategories(){
+            if(localStorage.getItem('categories')){
+                return JSON.parse(localStorage.getItem('categories'))
+            } else {
+                return this.CATEGORIES
+            }
+        },
+        getChildCategories(categoryId){
+            this.show = true
+            this.childCategories = JSON.parse(localStorage.getItem(`${categoryId}`))
+        }
     },
     mounted(){
+        if(!localStorage.getItem('categories')){
         this.GET_CATEGORIES()
+        }
     }
 }
 </script>
@@ -63,5 +88,19 @@ export default {
 }
 .header__inner-content {
     cursor: pointer;
+}
+.header__link-category{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+.header__link-category:hover{
+    color: white;
+}
+.child__wrap{
+    height: auto;
+}
+.child{
+    font-size: 25px;
 }
 </style>
