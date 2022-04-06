@@ -50,13 +50,13 @@ export default {
         ...mapActions({
             GET_CATEGORIES: 'category/GET_CATEGORIES',
             SET_CATEGORY: 'products/SET_CATEGORY',
-            SET_CATEGORY_NAME: 'category/SET_CATEGORY_NAME',
-            SET_CATEGORY_ID: 'category/SET_CATEGORY_ID'
+            // SET_CATEGORY_ID: 'category/SET_CATEGORY_ID',
+            GET_REQUEST_CATEGORIES: 'category/GET_REQUEST_CATEGORIES'
         }),
-        setCategory(categoryId, categoryName){
+        setCategory(categoryId){
             this.SET_CATEGORY(categoryId)
-            this.SET_CATEGORY_NAME(categoryName)
-            this.SET_CATEGORY_ID(categoryId)
+            // this.SET_CATEGORY_ID(categoryId)
+            this.GET_REQUEST_CATEGORIES(categoryId)
         },
         getCategories(){
             if(localStorage.getItem('categories')){

@@ -4,18 +4,18 @@ const category = {
     state:{
         categories: [],
         childCategories: [],
-        categoryName: '',
+        requestChilCategories: [],
         categoryId: ''
     },
     mutations:{
         SET_CATEGORIES(state, categories){
             state.categories = categories
         },
-        SET_CATEGORY_NAME(state, categoryName){
-            state.categoryName = categoryName
-        },
         SET_CATEGORY_ID(state, categoryId){
             state.categoryId = categoryId
+        },
+        SET_REQUEST_CATEGORIES(state, requestChilCategories){
+            state.requestChilCategories = requestChilCategories
         }
     },
     actions:{
@@ -41,17 +41,25 @@ const category = {
                 }, i * 1000)
             })
         },
-        SET_CATEGORY_NAME({commit}, categoryName){
-            commit('SET_CATEGORY_NAME', categoryName)
+        GET_REQUEST_CATEGORIES({commit}, categoryId){
+            if(categoryId !== undefined){
+                api.get('categories/list/?categoryId=' + categoryId)
+                .then(categories =>{
+                    commit('SET_REQUEST_CATEGORIES', categories.data.childCategories)
+                    console.log(categories.data.childCategories)
+                })
+                .catch(err => console.log(err))    
+            }
         },
-        SET_CATEGORY_ID({commit}, categoryId){
+        SET_CATEGORY_ID({commit, dispatch}, categoryId){
             commit('SET_CATEGORY_ID', categoryId)
+            dispatch('GET_REQUEST_CATEGORIES', categoryId)
         }
     },
     getters:{
         CATEGORIES: state => state.categories,
-        CATEGORY_NAME: state => state.categoryName,
-        CATEGORY_ID: state => state.categoryId
+        CATEGORY_ID: state => state.categoryId,
+        REQUEST_CATEGORIES: state => state.requestChilCategories
     },
     namespaced: true
 }

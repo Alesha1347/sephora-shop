@@ -5,8 +5,8 @@
       <div class="header__store">Store</div>
       <div class="header__reg">Sign In</div>
       <div class="header__chat"><b-icon icon="chat"></b-icon></div>
-      <div class="header__favourites"><b-icon icon="heart"></b-icon></div>
-      <div class="header__basket"><b-icon icon="basket"></b-icon></div>
+      <router-link :to="{name: 'favourites'}" class="header__favourites" ><b-icon icon="heart"></b-icon></router-link>
+      <router-link :to="{name: 'basket'}" class="header__basket"><b-icon icon="basket"></b-icon></router-link>
   </div>
 </template>
 
@@ -47,9 +47,17 @@ export default {
 .header__favourites {
     cursor: pointer;
     font-size: 25px;
+    color: black;
+}
+.header__favourites:hover{
+    color: black;
 }
 .header__basket {
     cursor: pointer;
     font-size: 25px;
+    color: black;
+}
+.header__basket:hover{
+    color: black;
 }
 </style>

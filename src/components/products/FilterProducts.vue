@@ -50,6 +50,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 500px;
+    margin-top: 20px;
 }
 .filter__products-name {
     color: grey;

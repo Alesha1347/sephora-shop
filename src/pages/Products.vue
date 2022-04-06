@@ -4,11 +4,15 @@
     <div class="products">
         <FilterProducts/>
     <div class="products__content">
+        <div class="products__content-up">
+            <ProductsShowig/>
         <MyPaginate
         :counts="totalCounts"
         @changePage="SET_PAGE"
         :currentPage.sync="currentPage"
+        :pageSize="pageSize"
         />
+        </div>
   <div class="products__list">
       <ProductsList
       v-for="product in PRODUCTS"
@@ -17,7 +21,7 @@
       />
   </div>
         <MyPaginate 
-        style="margin-top: 50px"
+        style="border-top: 1px solid lightgray; padding: 10px 0"
         :counts="totalCounts"
         @changePage="SET_PAGE"
         :currentPage.sync="currentPage"
@@ -33,8 +37,9 @@ import { mapActions, mapGetters } from 'vuex'
 import ProductsList from '../components/products/ProductsList.vue'
 import FilterProducts from '../components/products/FilterProducts.vue'
 import ProductsMap from '../components/products/ProductsMap.vue'
+import ProductsShowig from '../components/products/ProductsShowing.vue'
 export default {
-    components:{ProductsList, FilterProducts, ProductsMap},
+    components:{ProductsList, FilterProducts, ProductsMap, ProductsShowig},
     data(){
         return{
             currentPage: 1
@@ -43,7 +48,8 @@ export default {
     computed:{
         ...mapGetters({
             PRODUCTS: 'products/PRODUCTS',
-            totalCounts: 'products/totalCounts'
+            totalCounts: 'products/totalCounts',
+            pageSize: 'products/pageSize'
         })
     },
     methods:{
@@ -69,6 +75,14 @@ export default {
 }
 .products{
     display: flex;
+}
+.products__content{
+    border-left: 1px solid lightgray;
+}
+.products__content-up{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 .products__list {
     display: flex;

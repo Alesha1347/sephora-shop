@@ -5,6 +5,9 @@
       {{ this.CATEGORY_NAME }}
       </div>
       <div class="map__sort-products">
+          <div class="map__select-title">
+              Сортировать по 
+          </div>
           <MySelect
           :selected="selected"
           @chooseSelect="SORT_BY"
@@ -16,7 +19,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
     data(){
         return{
@@ -35,7 +38,12 @@ export default {
     },
     computed:{
         ...mapGetters({
-            CATEGORY_NAME: 'category/CATEGORY_NAME',
+            CATEGORY_NAME: 'products/CATEGORY_NAME',
+        })
+    },
+    methods:{
+        ...mapActions({
+            SORT_BY: 'products/SORT_BY'
         })
     }
 }
@@ -43,16 +51,25 @@ export default {
 
 <style>
 .products__nav-map {
-    margin: 30px 0 20px 0;
+    margin-top: 30px;
     border-bottom: 1px solid lightgray;
 }
 .map__info{
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    position: relative;
+    align-items: center;
 }
 .map__name{
     color: gray;
+}
+.map__sort-products{
+    display: flex;
+    align-items: center;
+}
+.map__select-title{
+    font-weight: bold;
+    color: gray;
+    font-size: 18px;
 }
 </style>

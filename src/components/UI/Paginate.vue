@@ -3,7 +3,7 @@
       <b-pagination
         v-model="currentPageChange"
         :total-rows="counts"
-        :per-page="60"
+        :per-page="pageSize"
         aria-controls="my-table"
         :limit="3"
         size="sm"
@@ -15,7 +15,7 @@
 <script>
 export default {
     name: 'MyPaginate',
-    props:['counts', 'currentPage'],
+    props:['counts', 'currentPage', 'pageSize'],
     computed:{
         currentPageChange:{
             get(){
@@ -41,6 +41,7 @@ export default {
     justify-content: flex-end;
     align-items: center;
     text-align: center;
+    margin-top: 10px;
 }
 .pagination .page-item{
     margin-right: 10px;
