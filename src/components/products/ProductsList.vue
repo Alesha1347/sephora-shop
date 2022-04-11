@@ -1,13 +1,19 @@
 <template>
   <div class="products__item"
   @mouseleave="isShowQuicklook = false">
+  <router-link :to="{name: 'productPage', params:{id: product.productId, skuId: product.currentSku.skuId}}">
       <img class="product__img" 
       :src="product.heroImage"
       @mouseenter="isShowQuicklook = true">
+  </router-link>
       <div class="product__info"
       @mouseenter="isShowQuicklook = false">
+        <router-link class="product__brand-link" :to="{name: 'productPage', params:{id: product.productId, skuId: product.currentSku.skuId}}">
         <div class="product__brand">{{ product.brandName }}</div>
+        </router-link>
+          <router-link class="product__name-link" :to="{name: 'productPage', params:{id: product.productId, skuId: product.currentSku.skuId}}">
           <div class="product__name">{{ product.displayName }}</div>
+          </router-link>
         <div class="product__price">{{ product.currentSku.listPrice }}</div>
       </div>
       <div v-if="isShowQuicklook" 
@@ -89,13 +95,22 @@ export default {
 .product__price {
     font-weight: bold;
 }
+.product__brand-link{
+    color: black;
+    text-decoration: none;
+}
 .product__brand {
     font-weight: bold;
     margin: 5px;
     cursor: pointer;
 }
-.product__brand:hover{
+.product__brand-link:hover{
     text-decoration: underline;
+    color: black;
+}
+.product__name-link{
+    color: black;
+    text-decoration: none;
 }
 .product__name {
     text-align: center;
@@ -105,8 +120,9 @@ export default {
     text-overflow: ellipsis;
     cursor: pointer;
 }
-.product__name:hover{
+.product__name-link:hover{
     text-decoration: underline;
+    color: black;
 }
 .product__quicklook {
     position: absolute;
