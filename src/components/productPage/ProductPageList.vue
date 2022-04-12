@@ -1,7 +1,6 @@
 <template>
     <div class="product__page-list">
-      <div class="product__page-top"
-      >
+      <div class="product__page-top">
           <div class="product__page-image">
               <img :src="product.regularChildSkus[this.numObj].skuImages.image450">
           </div>
@@ -41,13 +40,25 @@
                   </div>
               </div>
               <div class="product__page-mini"></div>
+              <div class="product__page-add">
+                <AddButtonToBasket
+                :product="product"
+                />
+                <AddFav
+                :product="product"
+                class="product__page-fav"
+                />
+              </div>
           </div>
       </div>
   </div>
 </template>
 
 <script>
+import AddButtonToBasket from '../quicklook/AddButtonToBasket.vue'
+import AddFav from '../quicklook/AddFav.vue'
 export default {
+    components:{AddButtonToBasket, AddFav},
     props:{
         product:{
             type: Object,
@@ -73,12 +84,15 @@ export default {
 }
 .product__page-top {
     display: flex;
+    align-items: center;
 }
 .product__page-image {
+    margin-right: 40px;
 }
 .product__page-info {
     display: flex;
     flex-direction: column;
+    margin-right: 40px;
 }
 .product__page-brand {
     font-weight: bold;
@@ -120,5 +134,8 @@ export default {
     border: 2px solid black;
 }
 .product__page-mini {
+}
+.product__page-fav{
+    position: sticky;
 }
 </style>

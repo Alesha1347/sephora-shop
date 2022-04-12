@@ -21,12 +21,9 @@
       @click="this.isShowProductInfo = !this.isShowProductInfo">
         Quicklook
       </div>
-      <div @click="setFav(product)"
-      >
-          <b-icon 
-          class="product__favourites"
-          :icon="hearth"></b-icon>
-      </div>
+      <AddFav
+      :product="product"
+      />
       <AddButtonToBasket
       :product="product"
       />
@@ -34,10 +31,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
 import AddButtonToBasket from '../quicklook/AddButtonToBasket.vue'
+import AddFav from '../quicklook/AddFav.vue'
 export default {
-    components:{AddButtonToBasket},
+    components:{AddButtonToBasket, AddFav},
     props:{
         product:{
             type: Object,
@@ -47,29 +44,8 @@ export default {
     data(){
         return{
             isShowQuicklook: false,
-            hearth: 'heart',
             isShowProductInfo: false
         }
-    },
-    computed:{
-        ...mapGetters({
-            FAVOURITES: 'favourites/FAVOURITES'
-        })
-    },
-    methods:{
-        ...mapActions({
-            SET_FAVOURITES: 'favourites/SET_FAVOURITES',
-        }),
-        setFav(product){
-            this.SET_FAVOURITES(product)
-            return this.FAVOURITES.find(item =>{
-                if(item.productId === product.productId){
-                    this.hearth = 'heart-fill'
-                } else {
-                    this.hearth = 'hearth'
-                }
-            })
-        },
     }
 }
 </script>
@@ -141,16 +117,5 @@ export default {
 }
 .product__quicklook:hover{
     opacity: 1;
-}
-.product__favourites {
-    position: absolute;
-    font-size: 25px;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-    color: brown;
-}
-.product__favourites:hover{
-    font-size: 30px;
 }
 </style>
