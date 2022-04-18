@@ -18,22 +18,44 @@
           :array="this.similar"
           />
       </div>
+      <ProductPageReviews
+      v-for="review in REVIEWS"
+      :key="review.Id"
+      :review="review"
+      />
+      <MyPaginate
+      :currentPage.sync="currentPage"
+      :counts="totalReviews"
+      :pageSize="10"
+      />
   </div>
 </template>
 
 <script>
 import ProductPageList from '../components/productPage/ProductPageList.vue'
 import ProductPageInfo from '../components/productPage/ProductPageInfo.vue'
+import ProductPageReviews from '../components/productPage/ProductPageReviews.vue'
+import { mapActions, mapGetters } from 'vuex'
 export default {
-    components:{ProductPageList, ProductPageInfo},
+    components:{ProductPageList, ProductPageInfo, ProductPageReviews},
     data(){
         return{
             product: {},
             similar: [],
-            categoryId: ''
+            categoryId: '',
+            currentPage: 1,
         }
     },
+    computed:{
+        ...mapGetters({
+            REVIEWS: 'reviews/REVIEWS',
+            totalReviews: 'reviews/totalReviews'
+        })
+    },
     methods:{
+        ...mapActions({
+            GET_REVIEWS_FROM_API: 'reviews/GET_REVIEWS_FROM_API'
+        }),
         getData(){
             const queryParams = {
                 productId: this.$route.params.id,
@@ -70,6 +92,9 @@ export default {
         // this.similar = JSON.parse(localStorage.getItem('productPageSimilar'))
         this.product = JSON.parse(localStorage.getItem('productPage'))
     },
+    mounted(){
+        this.GET_REVIEWS_FROM_API()
+    }
     // watch:{
     //     'categoryId': function(){
     //         this.getSimilar()

@@ -25,6 +25,7 @@
         :counts="totalCounts"
         @changePage="SET_PAGE"
         :currentPage.sync="currentPage"
+        :pageSize="pageSize"
         />
     </div>
 

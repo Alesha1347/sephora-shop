@@ -9,5 +9,5 @@ export default [
     MyCarousel,
     MyPaginate,
     MyRangeSlider,
-    MySelect
+    MySelect,
 ]

@@ -15,6 +15,10 @@ Vue.use(IconsPlugin)
 import VueCarousel from 'vue-carousel';
 Vue.use(VueCarousel);
 
+// let StarRating = require('vue-star-rating');
+import StarRating from 'vue-star-rating'
+Vue.component('star-rating', StarRating);
+
 components.forEach(component =>{
   Vue.component(component.name, component)
 })
