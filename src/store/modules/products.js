@@ -55,7 +55,6 @@ const products = {
             .then(products =>{
                 commit('SET_PRODUCTS', products.data.products)
                 commit('TOTAL_COUNTS', products.data.totalProducts)
-                console.log(products.data)
                 commit('SET_MAX_PRICE', products.data.refinements[products.data.refinements.length - 1].values[0].high)
                 commit('SET_CATEGORY_NAME', products.data.displayName)
             })

@@ -8,6 +8,7 @@
 
 <script>
 import ReviewsComments from '../productPageReviews/ReviewsCommetns.vue'
+
 export default {
     components:{ReviewsComments},
     props:{

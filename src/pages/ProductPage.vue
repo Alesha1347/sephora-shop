@@ -18,6 +18,7 @@
           :array="this.similar"
           />
       </div>
+        <ReviewsInfo/>
       <ProductPageReviews
       v-for="review in REVIEWS"
       :key="review.Id"
@@ -27,6 +28,7 @@
       :currentPage.sync="currentPage"
       :counts="totalReviews"
       :pageSize="10"
+      @changePage="CHANGE_PAGE_REVIEWS"
       />
   </div>
 </template>
@@ -35,9 +37,10 @@
 import ProductPageList from '../components/productPage/ProductPageList.vue'
 import ProductPageInfo from '../components/productPage/ProductPageInfo.vue'
 import ProductPageReviews from '../components/productPage/ProductPageReviews.vue'
+import ReviewsInfo from '../components/productPageReviews/ReviewsInfo.vue'
 import { mapActions, mapGetters } from 'vuex'
 export default {
-    components:{ProductPageList, ProductPageInfo, ProductPageReviews},
+    components:{ProductPageList, ProductPageInfo, ProductPageReviews, ReviewsInfo},
     data(){
         return{
             product: {},
@@ -54,21 +57,24 @@ export default {
     },
     methods:{
         ...mapActions({
-            GET_REVIEWS_FROM_API: 'reviews/GET_REVIEWS_FROM_API'
+            GET_REVIEWS_FROM_API: 'reviews/GET_REVIEWS_FROM_API',
+            CHANGE_PAGE_REVIEWS: 'reviews/CHANGE_PAGE_REVIEWS'
         }),
         getData(){
             const queryParams = {
                 productId: this.$route.params.id,
                 preferedSku:  this.$route.params.skuId
             }
-            if(!localStorage.getItem('productPage')){
+            // if(!localStorage.getItem('productPage')){
             this.$api.get('products/detail/', queryParams)
             .then(response =>{
-                localStorage.setItem('productPage', JSON.stringify(response.data))
-                this.product = JSON.parse(localStorage.getItem('productPage'))
+                // localStorage.setItem('productPage', JSON.stringify(response.data))
+                // this.product = JSON.parse(localStorage.getItem('productPage'))
                 this.categoryId = response.data.parentCategory.categoryId
+                this.product = response.data
+                console.log(response.data)
             })
-            }
+            // }
             
         },
         getSimilar(){
@@ -90,7 +96,7 @@ export default {
     created(){
         this.getData()
         // this.similar = JSON.parse(localStorage.getItem('productPageSimilar'))
-        this.product = JSON.parse(localStorage.getItem('productPage'))
+        // this.product = JSON.parse(localStorage.getItem('productPage'))
     },
     mounted(){
         this.GET_REVIEWS_FROM_API()

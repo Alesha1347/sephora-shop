@@ -7,7 +7,7 @@ const reviews = {
         page: 1,
         ratingValue: '',
         productId: 'P454378',
-        totalReviews: 0
+        totalReviews: 0,
     },
     mutations:{
         SET_REVIEWS(state, reviews){
@@ -15,6 +15,12 @@ const reviews = {
         },
         SET_TOTAL(state, totalReviews){
             state.totalReviews = totalReviews
+        },
+        CHANGE_PAGE_REVIEWS(state, page){
+            state.page = page
+        },
+        SET_RATING(state, rating){
+            state.ratingValue = rating
         }
     },
     actions:{
@@ -22,14 +28,25 @@ const reviews = {
             const queryParams = {
                 Limit: this.state.reviews.limit,
                 Offset: this.state.reviews.page,
-                ProductId: this.state.reviews.productId
+                ProductId: this.state.reviews.productId,
+            }
+            if(this.state.reviews.ratingValue){
+                queryParams.RatingValue = this.state.reviews.ratingValue
             }
             api.get('reviews/list/', queryParams)
             .then(reviews =>{
                 commit('SET_REVIEWS', reviews.data.Results)
                 commit('SET_TOTAL', reviews.data.TotalResults)
-                console.log(reviews.data.Results)
             })
+        },
+        CHANGE_PAGE_REVIEWS({commit, dispatch}, page){
+            console.log(page)
+            commit('CHANGE_PAGE_REVIEWS', page)
+            dispatch('GET_REVIEWS_FROM_API')
+        },
+        SET_RATING({commit, dispatch}, rating){
+            commit('SET_RATING', rating)
+            dispatch('GET_REVIEWS_FROM_API')
         }
     },
     getters:{

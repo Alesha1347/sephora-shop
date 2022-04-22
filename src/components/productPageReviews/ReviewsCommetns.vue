@@ -19,8 +19,12 @@
                   <div class="comments__info-descr">
                       {{ review.ReviewText }}
                   </div>
-                  <div class="comments__info-helpful">
-
+                  <div class="comments__info-photos"
+                  v-for="(photo, index) in review.Photos"
+                  :key="index"
+                  >
+                    <img class="photo__thumbnail" :src="photo.Sizes.thumbnail.Url">
+                    <img class="photo__normal" :src="photo.Sizes.normal.Url">
                   </div>
               </div>
               <div class="reviews__comments-user">
@@ -41,6 +45,11 @@ export default {
         review:{
             type: Object,
             default:() => {}
+        }
+    },
+    data(){
+        return{
+            isNormal: false
         }
     },
     methods:{
@@ -91,6 +100,9 @@ export default {
 }
 .comments__info-descr {
     font-size: 14px;
+}
+.photo__thumbnail{
+    cursor: pointer;
 }
 .comments__info-helpful {
 }

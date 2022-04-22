@@ -18,7 +18,8 @@
       </div>
       <div v-if="isShowQuicklook" 
       class="product__quicklook"
-      @click="this.isShowProductInfo = !this.isShowProductInfo">
+      @click="showProductInfo(product.productId, product.currentSku.skuId)"
+      >
         Quicklook
       </div>
       <AddFav
@@ -27,14 +28,20 @@
       <AddButtonToBasket
       :product="product"
       />
+      <QuickLook
+      v-if="isShowProductInfo"
+      :productId="productId"
+      :skuId="skuId"
+      />
   </div>
 </template>
 
 <script>
 import AddButtonToBasket from '../quicklook/AddButtonToBasket.vue'
 import AddFav from '../quicklook/AddFav.vue'
+import QuickLook from '../quicklook/QuickLook.vue'
 export default {
-    components:{AddButtonToBasket, AddFav},
+    components:{AddButtonToBasket, AddFav, QuickLook},
     props:{
         product:{
             type: Object,
@@ -44,7 +51,17 @@ export default {
     data(){
         return{
             isShowQuicklook: false,
-            isShowProductInfo: false
+            isShowProductInfo: false,
+            productId: '',
+            skuId: ''
+        }
+    },
+    methods:{
+        showProductInfo(id, skuId){
+            this.isShowProductInfo = true
+            this.productId = id
+            this.skuId = skuId
+            console.log(id, skuId)
         }
     }
 }

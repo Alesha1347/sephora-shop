@@ -1,8 +1,11 @@
 <template>
     <div class="product__page-list">
       <div class="product__page-top">
-          <div class="product__page-image">
+          <div class="product__page-image" v-if="product.regularChildSkus !== undefined">
               <img :src="product.regularChildSkus[this.numObj].skuImages.image450">
+          </div>
+          <div class="product__page-image" v-else>
+                <img :src="product.ancillarySkus[this.numObj].skuImages.image450">
           </div>
           <div class="product__page-info">
               <div class="product__page-brand">
@@ -19,16 +22,26 @@
                       {{product.rating}}
                   </div>
               </div>
-              <div class="product__page-price">
+              <div class="product__page-price" v-if="product.regularChildSkus !== undefined">
                   {{product.regularChildSkus[this.numObj].listPrice}}
               </div>
+              <div class="product__page-price" v-else>
+                  {{product.ancillarySkus[this.numObj].listPrice}}
+              </div>
               <div class="product__page-size">
-                  Size: {{product.regularChildSkus[this.numObj].size}}
+                  {{product.variationType}}: 
+                  <span v-if="product.regularChildSkus !== undefined" style="font-weight: bold;">
+                      {{product.regularChildSkus[this.numObj].variationValue}}
+                  </span>
+                  <span v-else>
+                        {{product.ancillarySkus[this.numObj].variationValue}}
+                  </span>
               </div>
                     <div class="choice__name">
                       Standart size
                   </div>
               <div class="product__page-choice"
+              v-if="product.regularChildSkus !== undefined"
               >
                   <div class="choice__size"
                     v-for="(productSize, index) in product.regularChildSkus"
@@ -36,7 +49,20 @@
                     :class="{active:`${index === numObj ? 'active': ''}`}"
                     @click="changeInfo(index)"
                     >
-                      {{productSize.size}}
+                    <img v-if="product.variationType === 'Color'" class="choice__image" 
+                    :src="productSize.smallImage"
+                    >
+                      <img v-else class="choice__image" :src="productSize.skuImages.image42">
+                  </div>
+              </div>
+              <div class="product__page-choice" v-else>
+                    <div class="choice__size"
+                    v-for="(productSize, index) in product.ancillarySkus"
+                    :key="index"
+                    :class="{active:`${index === numObj ? 'active': ''}`}"
+                    @click="changeInfo(index)"
+                    >
+                      <img class="choice__image" :src="productSize.skuImages.image42">
                   </div>
               </div>
               <div class="product__page-mini"></div>
@@ -68,7 +94,6 @@ export default {
     data(){
         return{
             numObj: 0,
-            isActive: true,
         }
     },
     methods:{
@@ -84,7 +109,8 @@ export default {
 }
 .product__page-top {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    margin-top: 20px;
 }
 .product__page-image {
     margin-right: 40px;
@@ -118,13 +144,14 @@ export default {
 .product__page-choice {
     margin-bottom: 15px;
     display: flex;
+    flex-wrap: wrap;
 }
 .choice__name {
     margin-bottom: 10px;
 }
 .choice__size {
     cursor: pointer;
-    margin-right: 20px;
+    margin: 5px;
     font-size: 15px;
     border: 2px solid lightgray;
     padding: 5px 10px;

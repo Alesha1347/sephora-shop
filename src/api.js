@@ -14,8 +14,7 @@ const api = {
         return axios.get(this.url + url + `?${transformRequest(data)}`, {
             headers:{
                 'X-RapidAPI-Host': 'sephora.p.rapidapi.com',
-    'X-RapidAPI-Key': 'ff7bd83116msh5e61b91468aafaap13f98ajsnc24a4e5febc7'
-            }
+                'X-RapidAPI-Key': '3dd7d210f0msh824c28353f2589cp1fd924jsna660a1f81371'}
         })
             .then((response) => {
                 return response;
