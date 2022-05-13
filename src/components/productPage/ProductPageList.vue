@@ -15,9 +15,9 @@
                   {{product.displayName}}
               </div>
               <div class="product__page-reviews">
-                  <div class="product__page-comments">
-                      {{product.reviews}}
-                  </div>
+                  <a class="product__page-comments" href="#comments">
+                      ★ {{product.reviews}}
+                  </a>
                   <div class="product__page-rating">
                       {{product.rating}}
                   </div>
@@ -67,24 +67,28 @@
               </div>
               <div class="product__page-mini"></div>
               <div class="product__page-add">
-                <AddButtonToBasket
-                :product="product"
-                />
+                  <AddButtonToBasket
+                  :product="product.regularChildSkus[numObj]"
+                  />
                 <AddFav
                 :product="product"
                 class="product__page-fav"
                 />
               </div>
           </div>
+                  <div class="product__close-quicklook" @click="closeProductInfo">
+                  <b-icon icon="x-octagon"></b-icon>
+                  </div>
+
       </div>
   </div>
 </template>
 
 <script>
-import AddButtonToBasket from '../quicklook/AddButtonToBasket.vue'
 import AddFav from '../quicklook/AddFav.vue'
+import AddButtonToBasket from '../quicklook/AddButtonToBasket.vue'
 export default {
-    components:{AddButtonToBasket, AddFav},
+    components:{AddFav, AddButtonToBasket},
     props:{
         product:{
             type: Object,
@@ -99,6 +103,9 @@ export default {
     methods:{
         changeInfo(index){
             this.numObj = index
+        },
+        closeProductInfo(){
+            this.$root.$emit('closeInfo')
         }
     }
 }
@@ -110,7 +117,7 @@ export default {
 .product__page-top {
     display: flex;
     align-items: flex-start;
-    margin-top: 20px;
+    padding: 10px;
 }
 .product__page-image {
     margin-right: 40px;
@@ -145,6 +152,10 @@ export default {
     margin-bottom: 15px;
     display: flex;
     flex-wrap: wrap;
+    width: 450px;
+    justify-content: flex-start;
+    max-height: 200px;
+    overflow: scroll;
 }
 .choice__name {
     margin-bottom: 10px;
@@ -164,5 +175,16 @@ export default {
 }
 .product__page-fav{
     position: sticky;
+}
+.product__close-quicklook{
+    position: absolute;
+    cursor: pointer;
+    z-index: 20;
+    left: 958px;
+    top: 7px;
+    font-size: 20px;
+}
+.product__close-quicklook:hover{
+    color: rgb(233, 29, 39);
 }
 </style>

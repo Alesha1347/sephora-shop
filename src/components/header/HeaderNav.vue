@@ -51,12 +51,15 @@ export default {
             GET_CATEGORIES: 'category/GET_CATEGORIES',
             SET_CATEGORY: 'products/SET_CATEGORY',
             // SET_CATEGORY_ID: 'category/SET_CATEGORY_ID',
-            GET_REQUEST_CATEGORIES: 'category/GET_REQUEST_CATEGORIES'
+            GET_REQUEST_CATEGORIES: 'category/GET_REQUEST_CATEGORIES',
+            GET_PRODUCTS_FROM_API: 'products/GET_PRODUCTS_FROM_API'
         }),
         setCategory(categoryId){
-            this.SET_CATEGORY(categoryId)
+            // this.SET_CATEGORY(categoryId)
             // this.SET_CATEGORY_ID(categoryId)
-            this.GET_REQUEST_CATEGORIES(categoryId)
+            localStorage.setItem('categoryId', JSON.stringify(categoryId))
+            this.GET_PRODUCTS_FROM_API()
+            this.GET_REQUEST_CATEGORIES()
         },
         getCategories(){
             if(localStorage.getItem('categories')){

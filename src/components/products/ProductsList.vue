@@ -1,12 +1,15 @@
 <template>
   <div class="products__item"
   @mouseleave="isShowQuicklook = false">
-  <router-link :to="{name: 'productPage', params:{id: product.productId, skuId: product.currentSku.skuId}}">
+  <router-link :to="{name: 'productPage', params:{id: product.productId, skuId: product.currentSku.skuId}}"
+  >
       <img class="product__img" 
+      @click="SET_PRODUCT_ID(product.productId)"
       :src="product.heroImage"
       @mouseenter="isShowQuicklook = true">
   </router-link>
       <div class="product__info"
+      @click="SET_PRODUCT_ID(product.productId)"
       @mouseenter="isShowQuicklook = false">
         <router-link class="product__brand-link" :to="{name: 'productPage', params:{id: product.productId, skuId: product.currentSku.skuId}}">
         <div class="product__brand">{{ product.brandName }}</div>
@@ -25,23 +28,23 @@
       <AddFav
       :product="product"
       />
-      <AddButtonToBasket
-      :product="product"
-      />
+      <div class="product__quicklook-open"
+        v-if="isShowProductInfo">
       <QuickLook
-      v-if="isShowProductInfo"
       :productId="productId"
       :skuId="skuId"
       />
+        <!-- <div class="product__close-quicklook" @click="isShowProductInfo = !isShowProductInfo">X</div> -->
+      </div>
   </div>
 </template>
 
 <script>
-import AddButtonToBasket from '../quicklook/AddButtonToBasket.vue'
+import { mapActions } from 'vuex'
 import AddFav from '../quicklook/AddFav.vue'
 import QuickLook from '../quicklook/QuickLook.vue'
 export default {
-    components:{AddButtonToBasket, AddFav, QuickLook},
+    components:{AddFav, QuickLook},
     props:{
         product:{
             type: Object,
@@ -57,12 +60,30 @@ export default {
         }
     },
     methods:{
+        ...mapActions({
+            SET_PRODUCT_ID: 'reviews/SET_PRODUCT_ID'
+        }),
         showProductInfo(id, skuId){
             this.isShowProductInfo = true
             this.productId = id
             this.skuId = skuId
             console.log(id, skuId)
         }
+    },
+    watch:{
+        'isShowProductInfo': function(){
+            if(this.isShowProductInfo){
+            document.documentElement.style.overflow = 'hidden'
+            return
+            }
+            document.documentElement.style.overflow = 'auto'
+        }
+    },
+    mounted(){
+        var vm = this
+        this.$root.$on('closeInfo', function(){
+            vm.isShowProductInfo = false
+        })
     }
 }
 </script>

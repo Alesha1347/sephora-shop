@@ -10,12 +10,12 @@ const products = {
         pl: null,
         ph: null,
         totalCounts: 0,
-        categoryName: ''
+        categoryName: '',
     },
     mutations:{
-        SET_CATEGORY(state, category){
-            state.category = category
-        },
+        // SET_CATEGORY(state, category){
+        //     state.category = category
+        // },
         SET_PRODUCTS(state, products){
             state.products = products
         },
@@ -43,7 +43,7 @@ const products = {
             const queryParams = {
                 currentPage: this.state.products.currentPage,
                 pageSize:  this.state.products.pageSize,
-                categoryId: this.state.products.category
+                categoryId: JSON.parse(localStorage.getItem('categoryId'))
             }
             if(this.state.products.pl){
                 queryParams.pl = this.state.products.pl
@@ -60,10 +60,10 @@ const products = {
             })
             .catch(err => console.log(err))
         },
-        SET_CATEGORY({dispatch, commit}, category){
-            commit('SET_CATEGORY', category)
-            dispatch('GET_PRODUCTS_FROM_API')
-        },
+        // SET_CATEGORY({dispatch, commit}, category){
+        //     commit('SET_CATEGORY', category)
+        //     dispatch('GET_PRODUCTS_FROM_API')
+        // },
         CHANGE_MIN_PRICE({commit, }, minPrice){
             commit('CHANGE_MIN_PRICE', minPrice)
             // dispatch('GET_PRODUCTS_FROM_API')
@@ -75,6 +75,9 @@ const products = {
         SET_PAGE({dispatch, commit}, currentPage){
             commit('SET_PAGE', currentPage)
             dispatch('GET_PRODUCTS_FROM_API')
+        },
+        CHANGE_PRODUCT_INFO({commit}){
+            commit('CHANGE_PRODUCT_INFO')
         }
     },
     getters:{
@@ -83,7 +86,7 @@ const products = {
         maxPrice: state => state.maxPrice,
         totalCounts: state => state.totalCounts,
         CATEGORY_NAME: state => state.categoryName,
-        pageSize: state => state.pageSize
+        pageSize: state => state.pageSize,
     },
     namespaced: true
 }

@@ -1,23 +1,20 @@
 <template>
-  <div class="quicklook">
-    <div class="quicklook__content">
+  <div class="quicklook" @click="closeProduct">
 
-      <QuickLookRating 
-      :products="products"
-      :skuId="skuId"
-      />
-
-      <QuickLookInfo :products="products"/>
-
-    </div>
+    <ProductPageList
+    class="quicklook__modal"
+    :product="products"
+    />
   </div>
+
 </template>
 
 <script>
-import QuickLookRating from './QuickLookRating.vue'
-import QuickLookInfo from './QuickLookInfo.vue'
+// import QuickLookRating from './QuickLookRating.vue'
+// import QuickLookInfo from './QuickLookInfo.vue'
+import ProductPageList from '../productPage/ProductPageList.vue'
 export default {
-  components:{QuickLookRating, QuickLookInfo},
+  components:{ProductPageList},
   props: {
     productId:{
       type: String,
@@ -53,6 +50,11 @@ export default {
         console.log(product.skuId, this.skuId)
       })
       console.log(this.arr)
+    },
+    closeProduct(e){
+      if(e.target.className === e.currentTarget.className){
+        this.$root.$emit('closeInfo')
+      }
     }
   },
   created(){
@@ -63,14 +65,30 @@ export default {
 
 <style>
 .quicklook{
-  height: 1000px;
+  /* height: auto;
   width: 1000px;
   position: absolute;
   top: 50%;
   left: 50%;
   border: 1px solid black;
   z-index: 10;
-  background-color: gray;
+  background-color: gray; */
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0; top: 0; right: 0; bottom: 0;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.quicklook__modal{
+  display: block;
+  background-color: white;
+  box-shadow: 0px 5px 10px 17px rgba(34, 60, 80, 0.35);
+  border: 2px solid black;
+  width: 1000px;
+  position: relative;
 }
 .quicklook__content {
   display: flex;

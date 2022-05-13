@@ -6,7 +6,7 @@ const reviews = {
         limit: 10,
         page: 1,
         ratingValue: '',
-        productId: 'P454378',
+        productId: '',
         totalReviews: 0,
     },
     mutations:{
@@ -21,6 +21,9 @@ const reviews = {
         },
         SET_RATING(state, rating){
             state.ratingValue = rating
+        },
+        SET_PRODUCT_ID(state, productId){
+            state.productId = productId
         }
     },
     actions:{
@@ -47,6 +50,11 @@ const reviews = {
         SET_RATING({commit, dispatch}, rating){
             commit('SET_RATING', rating)
             dispatch('GET_REVIEWS_FROM_API')
+        },
+        SET_PRODUCT_ID({commit, dispatch}, productId){
+            commit('SET_PRODUCT_ID', productId)
+            dispatch('GET_REVIEWS_FROM_API')
+            console.log(productId)
         }
     },
     getters:{
