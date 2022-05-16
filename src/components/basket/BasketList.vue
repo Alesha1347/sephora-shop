@@ -3,10 +3,10 @@
   <div class="basket__item">
       <img class="basket__img" :src="product.skuImages.image135">
       <div class="basket__info">
-        <div class="basket__brand">{{ product.freeShippingMessage }}</div>
+        <div class="basket__brand">{{ product.displayName }}</div>
           <div class="basket__variation">
         <div class="basket__type">{{product.variationType}}: </div>
-          <div class="basket__size">{{product.variationValue}}</div>
+          <div class="basket__size">{{product.size}}</div>
         </div>
 
           <BasketQty

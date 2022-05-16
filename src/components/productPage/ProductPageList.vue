@@ -15,12 +15,13 @@
                   {{product.displayName}}
               </div>
               <div class="product__page-reviews">
-                  <a class="product__page-comments" href="#comments">
-                      ★ {{product.reviews}}
-                  </a>
-                  <div class="product__page-rating">
-                      {{product.rating}}
+                    <div class="product__page-rating">
+                      ★{{product.rating.toFixed()}}
                   </div>
+                  <a class="product__page-comments" href="#reviews__info">
+                      reviews
+                  </a>
+
               </div>
               <div class="product__page-price" v-if="product.regularChildSkus !== undefined">
                   {{product.regularChildSkus[this.numObj].listPrice}}
@@ -75,10 +76,9 @@
                 class="product__page-fav"
                 />
               </div>
+
+          
           </div>
-                  <div class="product__close-quicklook" @click="closeProductInfo">
-                  <b-icon icon="x-octagon"></b-icon>
-                  </div>
 
       </div>
   </div>
@@ -104,9 +104,6 @@ export default {
         changeInfo(index){
             this.numObj = index
         },
-        closeProductInfo(){
-            this.$root.$emit('closeInfo')
-        }
     }
 }
 </script>
@@ -138,8 +135,14 @@ export default {
     margin-bottom: 15px;
 }
 .product__page-comments {
+    color: black;
+    text-decoration-color: black;
+}
+.product__page-comments:hover{
+    color: rgb(233, 29, 39);
 }
 .product__page-rating {
+    margin-right: 20px;
 }
 .product__page-price {
     margin-bottom: 15px;
@@ -149,7 +152,7 @@ export default {
     margin-bottom: 15px;
 }
 .product__page-choice {
-    margin-bottom: 15px;
+    margin-bottom: 50px;
     display: flex;
     flex-wrap: wrap;
     width: 450px;
@@ -171,20 +174,13 @@ export default {
 .choice__size.active{
     border: 2px solid black;
 }
-.product__page-mini {
+.product__page-add {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 .product__page-fav{
     position: sticky;
 }
-.product__close-quicklook{
-    position: absolute;
-    cursor: pointer;
-    z-index: 20;
-    left: 958px;
-    top: 7px;
-    font-size: 20px;
-}
-.product__close-quicklook:hover{
-    color: rgb(233, 29, 39);
-}
+
 </style>

@@ -12,5 +12,8 @@ export default {
 </script>
 
 <style>
-
+.favourites{
+    display: flex;
+    justify-content: center;
+}
 </style>

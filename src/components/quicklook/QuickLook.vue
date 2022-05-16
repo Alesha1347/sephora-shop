@@ -1,17 +1,29 @@
 <template>
   <div class="quicklook" @click="closeProduct">
 
+    <div class="quicklook__content">
     <ProductPageList
     class="quicklook__modal"
     :product="products"
     />
+    <div class="product__close-quicklook" @click="closeProductInfo">
+      <b-icon icon="x-octagon"></b-icon>
+    </div>
+
+                  <div class="open__product" @click="removeScroll(productId)">
+              <router-link :to="{name: 'productPage', params:{id: productId, skuId: skuId}}" class="show__more"
+              >
+                  show more 
+                  <b-icon icon="arrow-right-circle"></b-icon>
+                  </router-link>
+          </div>
+
+    </div>
   </div>
 
 </template>
 
 <script>
-// import QuickLookRating from './QuickLookRating.vue'
-// import QuickLookInfo from './QuickLookInfo.vue'
 import ProductPageList from '../productPage/ProductPageList.vue'
 export default {
   components:{ProductPageList},
@@ -55,7 +67,14 @@ export default {
       if(e.target.className === e.currentTarget.className){
         this.$root.$emit('closeInfo')
       }
-    }
+    },
+    closeProductInfo(){
+      this.$root.$emit('closeInfo')
+    },
+    removeScroll(productId){
+      document.documentElement.style.overflow = 'auto'
+      localStorage.setItem('productId', JSON.stringify(productId))
+    },
   },
   created(){
     this.getData()
@@ -65,14 +84,6 @@ export default {
 
 <style>
 .quicklook{
-  /* height: auto;
-  width: 1000px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border: 1px solid black;
-  z-index: 10;
-  background-color: gray; */
   display: flex;
   width: 100%;
   height: 100%;
@@ -82,15 +93,43 @@ export default {
   align-items: center;
   z-index: 10;
 }
+.quicklook__content{
+  position: relative;
+  display: flex;
+}
 .quicklook__modal{
   display: block;
   background-color: white;
   box-shadow: 0px 5px 10px 17px rgba(34, 60, 80, 0.35);
   border: 2px solid black;
   width: 1000px;
-  position: relative;
 }
-.quicklook__content {
-  display: flex;
+.open__product {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+.product__close-quicklook{
+  position: absolute;
+  cursor: pointer;
+  z-index: 20;
+  left: 958px;
+  top: 7px;
+  font-size: 20px;
+}
+.product__close-quicklook:hover{
+  color: rgb(233, 29, 39);
+}
+.show__more{
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+}
+.show__more:hover{
+    color: rgb(233, 29, 39);
+    cursor: pointer;
 }
 </style>

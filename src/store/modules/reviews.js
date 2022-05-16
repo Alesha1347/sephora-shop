@@ -31,7 +31,7 @@ const reviews = {
             const queryParams = {
                 Limit: this.state.reviews.limit,
                 Offset: this.state.reviews.page,
-                ProductId: this.state.reviews.productId,
+                ProductId: this.state.reviews.productId || JSON.parse(localStorage.getItem('productId')),
             }
             if(this.state.reviews.ratingValue){
                 queryParams.RatingValue = this.state.reviews.ratingValue

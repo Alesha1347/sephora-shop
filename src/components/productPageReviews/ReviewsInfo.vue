@@ -1,5 +1,5 @@
 <template>
-        <div class="reviews__info" name="comments">
+        <div class="reviews__info" id="reviews__info" name="comments">
           <h2 class="reviews__title">
               Ratings & Reviews ({{totalReviews}})
           </h2>

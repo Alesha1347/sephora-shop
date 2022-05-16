@@ -4,12 +4,12 @@
   <router-link :to="{name: 'productPage', params:{id: product.productId, skuId: product.currentSku.skuId}}"
   >
       <img class="product__img" 
-      @click="SET_PRODUCT_ID(product.productId)"
+      @click="setProductId(product.productId)"
       :src="product.heroImage"
       @mouseenter="isShowQuicklook = true">
   </router-link>
       <div class="product__info"
-      @click="SET_PRODUCT_ID(product.productId)"
+      @click="setProductId(product.productId)"
       @mouseenter="isShowQuicklook = false">
         <router-link class="product__brand-link" :to="{name: 'productPage', params:{id: product.productId, skuId: product.currentSku.skuId}}">
         <div class="product__brand">{{ product.brandName }}</div>
@@ -34,7 +34,6 @@
       :productId="productId"
       :skuId="skuId"
       />
-        <!-- <div class="product__close-quicklook" @click="isShowProductInfo = !isShowProductInfo">X</div> -->
       </div>
   </div>
 </template>
@@ -68,6 +67,10 @@ export default {
             this.productId = id
             this.skuId = skuId
             console.log(id, skuId)
+        },
+        setProductId(productId){
+            this.SET_PRODUCT_ID(productId)
+            localStorage.setItem('productId', JSON.stringify(productId))
         }
     },
     watch:{

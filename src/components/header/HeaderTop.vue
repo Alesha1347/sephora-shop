@@ -6,13 +6,39 @@
       <div class="header__reg">Sign In</div>
       <div class="header__chat"><b-icon icon="chat"></b-icon></div>
       <router-link :to="{name: 'favourites'}" class="header__favourites" ><b-icon icon="heart"></b-icon></router-link>
-      <router-link :to="{name: 'basket'}" class="header__basket"><b-icon icon="basket"></b-icon></router-link>
+      <router-link :to="{name: 'basket'}" class="header__basket"><b-icon :icon="basketIcon"></b-icon></router-link>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-
+    data(){
+        return{
+            basketIcon: 'basket'
+        }
+    },
+    computed:{
+        ...mapGetters({
+            CART: 'cart/CART'
+        })
+    },
+    watch:{
+        'CART': function(){
+            if(this.CART.length){
+                this.basketIcon = 'basket-fill'
+            } else {
+            this.basketIcon = 'basket'
+        }
+        }
+    },
+    // mounted(){
+    //     if(this.CART.length){
+    //         this.basketIcon = 'basket-fill'
+    //     } else {
+    //         this.basketIcon = 'basket'
+    //     }
+    // }
 }
 </script>
 
