@@ -38,7 +38,8 @@ export default {
     data(){
         return{ 
             childCategories: [],
-            show: false
+            show: false,
+            categoryId: ''
         }
     },
     computed:{
@@ -57,7 +58,10 @@ export default {
         setCategory(categoryId){
             // this.SET_CATEGORY(categoryId)
             // this.SET_CATEGORY_ID(categoryId)
-            localStorage.setItem('categoryId', JSON.stringify(categoryId))
+            this.categoryId = categoryId
+            this.$store.state.products.ph = null
+            this.$store.state.products.pl = null
+            localStorage.setItem('categoryId', JSON.stringify(this.categoryId))
             this.GET_PRODUCTS_FROM_API()
             this.GET_REQUEST_CATEGORIES()
         },
@@ -77,7 +81,13 @@ export default {
         if(!localStorage.getItem('categories')){
         this.GET_CATEGORIES()
         }
-    }
+    },
+    // watch:{
+    //     'categoryId': function(){
+    //         this.$store.state.products.ph = null
+    //         this.$store.state.products.pl = null
+    //     }
+    // }
 }
 </script>
 

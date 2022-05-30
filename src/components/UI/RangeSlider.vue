@@ -56,27 +56,11 @@ export default {
         },
         sliderOne(){
             let myMinPrice = this.myMinPrice
-            // if(this.timeout){
-            //     clearTimeout(this.timeout)
-            // }
-            // // this.$store.state.episodes.isLoaded = true
-            // this.timeout = setTimeout(() =>{
-            // // this.$emit('sliderOne', myMinPrice)
-            // // this.$store.state.episodes.isLoaded = false
-            // },1000)
             this.$emit('sliderOne', myMinPrice)
             this.rangeChange()
         },
         sliderTwo(){
             let myMaxPrice = this.myMaxPrice
-            // if(this.timeout){
-            //     clearTimeout(this.timeout)
-            // }
-            // // this.$store.state.episodes.isLoaded = true
-            // this.timeout = setTimeout(() =>{
-            // // this.$emit('sliderTwo', myMaxPrice)
-            // // this.$store.state.episodes.isLoaded = false
-            // },1000)
             this.$emit('sliderTwo', myMaxPrice)
             this.rangeChange()
         },

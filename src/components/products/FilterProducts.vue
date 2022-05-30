@@ -8,7 +8,7 @@
           <div class="" @click="isShowPrice = !isShowPrice">Price</div>
           <MyRangeSlider
           v-if="isShowPrice"
-          :minPrice="0"
+          :minPrice="this.MINPRICE"
           :maxPrice="this.MAXPRICE"
           :myMinPrice.sync="minPrice"
           :myMaxPrice.sync="maxPrice"
@@ -26,14 +26,15 @@ export default {
     components:{ProductsNav},
     data(){
         return{
-            minPrice: 0,
-            maxPrice: this.$store.state.products.maxPrice,
+            minPrice: this.MINPRICE,
+            maxPrice: this.MAXPRICE,
             isShowPrice: false
         }
     },
     computed:{
         ...mapGetters({
-            MAXPRICE: 'products/maxPrice'
+            MAXPRICE: 'products/maxPrice',
+            MINPRICE: 'products/minPrice'
         })
     },
     methods:{
@@ -41,6 +42,12 @@ export default {
             CHANGE_MIN_PRICE: 'products/CHANGE_MIN_PRICE',
             CHANGE_MAX_PRICE: 'products/CHANGE_MAX_PRICE'
         })
+    },
+    watch:{
+        'MAXPRICE': function(){
+            this.maxPrice = this.MAXPRICE
+            this.minPrice = this.MINPRICE
+        }
     }
 }
 </script>

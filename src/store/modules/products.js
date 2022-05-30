@@ -6,7 +6,8 @@ const products = {
         category: '',
         currentPage: 1,
         pageSize: 60,
-        maxPrice: 0,
+        maxPrice: null,
+        minPrice: null,
         pl: null,
         ph: null,
         totalCounts: 0,
@@ -22,11 +23,15 @@ const products = {
         SET_MAX_PRICE(state, maxPrice){
             state.maxPrice = maxPrice
         },
+        SET_MIN_PRICE(state, minPrice){
+            state.minPrice = minPrice
+        },
         CHANGE_MIN_PRICE(state, minPrice){
             state.pl = minPrice
         },
         CHANGE_MAX_PRICE(state, maxPrice){
             state.ph = maxPrice
+            console.log(maxPrice)
         },
         TOTAL_COUNTS(state, totalCounts){
             state.totalCounts = totalCounts
@@ -56,6 +61,7 @@ const products = {
                 commit('SET_PRODUCTS', products.data.products)
                 commit('TOTAL_COUNTS', products.data.totalProducts)
                 commit('SET_MAX_PRICE', products.data.refinements[products.data.refinements.length - 1].values[0].high)
+                commit('SET_MIN_PRICE', products.data.refinements[products.data.refinements.length - 1].values[1].low)
                 commit('SET_CATEGORY_NAME', products.data.displayName)
             })
             .catch(err => console.log(err))
@@ -84,6 +90,7 @@ const products = {
         PRODUCTS: state => state.products,
         category: state => state.category,
         maxPrice: state => state.maxPrice,
+        minPrice: state => state.minPrice,
         totalCounts: state => state.totalCounts,
         CATEGORY_NAME: state => state.categoryName,
         pageSize: state => state.pageSize,

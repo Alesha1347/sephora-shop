@@ -21,7 +21,7 @@
       </div>
       <div v-if="isShowQuicklook" 
       class="product__quicklook"
-      @click="showProductInfo(product.productId, product.currentSku.skuId)"
+      @click="showProductInfo(product.productId, product.currentSku.skuId, product)"
       >
         Quicklook
       </div>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import AddFav from '../quicklook/AddFav.vue'
 import QuickLook from '../quicklook/QuickLook.vue'
 export default {
@@ -58,15 +58,21 @@ export default {
             skuId: ''
         }
     },
+    computed:{
+        ...mapGetters({
+            maxPrice: 'products/maxPrice',
+            minPrice: 'products/minPrice'
+        })
+    },
     methods:{
         ...mapActions({
             SET_PRODUCT_ID: 'reviews/SET_PRODUCT_ID'
         }),
-        showProductInfo(id, skuId){
+        showProductInfo(id, skuId, product){
             this.isShowProductInfo = true
             this.productId = id
             this.skuId = skuId
-            console.log(id, skuId)
+            console.log(product)
         },
         setProductId(productId){
             this.SET_PRODUCT_ID(productId)
