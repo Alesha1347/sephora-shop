@@ -12,6 +12,7 @@ const products = {
         ph: null,
         totalCounts: 0,
         categoryName: '',
+        sort: ''
     },
     mutations:{
         // SET_CATEGORY(state, category){
@@ -42,6 +43,12 @@ const products = {
         SET_CATEGORY_NAME(state, categoryName){
             state.categoryName = categoryName
         },
+        SORT_BY(state, sort){
+            state.sort = sort
+        },
+        CHANGE_PAGE_SIZE(state, pageSize){
+            state.pageSize = pageSize
+        }
     },
     actions:{
         GET_PRODUCTS_FROM_API({commit}){
@@ -54,6 +61,8 @@ const products = {
                 queryParams.pl = this.state.products.pl
             } if(this.state.products.ph){
                 queryParams.ph = this.state.products.ph
+            } if(this.state.products.sort){
+                queryParams.sortBy = this.state.products.sort
             }
 
             api.get('products/list/', queryParams)
@@ -84,6 +93,14 @@ const products = {
         },
         CHANGE_PRODUCT_INFO({commit}){
             commit('CHANGE_PRODUCT_INFO')
+        },
+        SORT_BY({commit, dispatch}, sort){
+            commit('SORT_BY', sort)
+            dispatch('GET_PRODUCTS_FROM_API')
+        },
+        CHANGE_PAGE_SIZE({commit, dispatch}, pageSize){
+            commit('CHANGE_PAGE_SIZE', pageSize)
+            dispatch('GET_PRODUCTS_FROM_API')
         }
     },
     getters:{
