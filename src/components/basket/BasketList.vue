@@ -1,18 +1,21 @@
 <template>
     <div class="basket__product-info">
   <div class="basket__item">
+
+      <!-- <router-link :to="{name: 'productPage', params:{id: product.productId, skuId: product.currentSku.skuId}}"> -->
       <img class="basket__img" :src="product.skuImages.image135">
+      <!-- </router-link> -->
       <div class="basket__info">
         <div class="basket__brand">{{ product.displayName }}</div>
           <div class="basket__variation">
         <div class="basket__type">{{product.variationType}}: </div>
           <div class="basket__size">{{product.size}}</div>
         </div>
-
           <BasketQty
       :product="product"
       />
       </div>
+
       <div class="basket__right">
         <div class="remove__cart" @click="CART_REMOVE(product.skuId)">
           <b-icon icon="x-circle"></b-icon>
@@ -61,11 +64,15 @@ export default {
   border-bottom: 1px solid lightgray;
   padding: 20px 0px;
 }
+.basket__img{
+  cursor: pointer;
+}
 .basket__info {
   padding: 10px;
   display: flex;
   flex-flow: row wrap;
   align-content: space-between;
+  cursor: pointer;
 }
 .basket__brand {
   font-weight: bold;

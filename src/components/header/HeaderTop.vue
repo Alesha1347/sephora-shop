@@ -5,8 +5,14 @@
       <div class="header__store">Store</div>
       <div class="header__reg">Sign In</div>
       <div class="header__chat"><b-icon icon="chat"></b-icon></div>
-      <router-link :to="{name: 'favourites'}" class="header__favourites" ><b-icon icon="heart"></b-icon></router-link>
+      <router-link :to="{name: 'favourites'}" class="header__favourites" ><b-icon :icon="favIcon"></b-icon></router-link>
       <router-link :to="{name: 'basket'}" class="header__basket"><b-icon :icon="basketIcon"></b-icon></router-link>
+      <MyAlert 
+      :alertFavName="alertFavName"
+      />
+    <MyAlert 
+        :alertBasketName="alertBasketName"
+      />
   </div>
 </template>
 
@@ -15,12 +21,16 @@ import { mapGetters } from 'vuex'
 export default {
     data(){
         return{
-            basketIcon: 'basket'
+            basketIcon: 'basket',
+            favIcon: 'bookmark-heart'
         }
     },
     computed:{
         ...mapGetters({
-            CART: 'cart/CART'
+            CART: 'cart/CART',
+            alertFavName: 'favourites/alertFavName',
+            FAVOURITES: 'favourites/FAVOURITES',
+            alertBasketName: 'cart/alertBasketName'
         })
     },
     watch:{
@@ -30,15 +40,15 @@ export default {
             } else {
             this.basketIcon = 'basket'
         }
+        },
+        'FAVOURITES': function(){
+            if(this.FAVOURITES.length){
+                this.favIcon = 'bookmark-heart-fill'
+            } else {
+            this.favIcon = 'bookmark-heart'
+        }
         }
     },
-    // mounted(){
-    //     if(this.CART.length){
-    //         this.basketIcon = 'basket-fill'
-    //     } else {
-    //         this.basketIcon = 'basket'
-    //     }
-    // }
 }
 </script>
 
@@ -50,6 +60,7 @@ export default {
     margin-top: 40px;
     margin-bottom: 40px;
     font-size: 20px;
+    position: relative;
 }
 .header__name {
     cursor: pointer;

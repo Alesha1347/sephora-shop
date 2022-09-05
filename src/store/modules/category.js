@@ -42,7 +42,7 @@ const category = {
             })
         },
         GET_REQUEST_CATEGORIES({commit}){
-                api.get('categories/list/?categoryId=' + JSON.parse(localStorage.getItem('categoruId')))
+                api.get('categories/list/?categoryId=' + JSON.parse(localStorage.getItem('categoryId')))
                 .then(categories =>{
                     commit('SET_REQUEST_CATEGORIES', categories.data.childCategories)
                     console.log(categories.data.childCategories)

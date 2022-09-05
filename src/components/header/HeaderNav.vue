@@ -52,7 +52,7 @@ export default {
             GET_CATEGORIES: 'category/GET_CATEGORIES',
             SET_CATEGORY: 'products/SET_CATEGORY',
             // SET_CATEGORY_ID: 'category/SET_CATEGORY_ID',
-            GET_REQUEST_CATEGORIES: 'category/GET_REQUEST_CATEGORIES',
+            // GET_REQUEST_CATEGORIES: 'category/GET_REQUEST_CATEGORIES',
             GET_PRODUCTS_FROM_API: 'products/GET_PRODUCTS_FROM_API'
         }),
         setCategory(categoryId){
@@ -63,7 +63,7 @@ export default {
             this.$store.state.products.pl = null
             localStorage.setItem('categoryId', JSON.stringify(this.categoryId))
             this.GET_PRODUCTS_FROM_API()
-            this.GET_REQUEST_CATEGORIES()
+            // this.GET_REQUEST_CATEGORIES()
         },
         getCategories(){
             if(localStorage.getItem('categories')){
@@ -92,6 +92,9 @@ export default {
 </script>
 
 <style>
+.d{
+    margin-bottom: 25px;
+}
 .navigation {
     display: flex;
     justify-content: space-around;
@@ -112,8 +115,23 @@ export default {
 }
 .child__wrap{
     height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    z-index: 10;
+    background-color: white;
+    width: 1500px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
 }
 .child{
     font-size: 25px;
+    cursor: pointer;
+    margin: 0px 20px;
+}
+.child:hover{
+    transform: scale(1.1);
+    color: brown;
 }
 </style>

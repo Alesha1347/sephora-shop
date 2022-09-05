@@ -1,6 +1,8 @@
 const cart = {
     state:{
-        cart: []
+        cart: [],
+        isShowAlertCart: false,
+        alertBasketName: ''
     },
     mutations:{
         SET_CART(state, product){
@@ -17,6 +19,13 @@ const cart = {
         },
         CART_REMOVE(state, skuId){
             state.cart = state.cart.filter(item => item.skuId !== skuId)
+        },
+        SET_CART_NAME(state, name){
+            state.alertBasketName = name
+        },
+        CHANGE_CART_ALERT(state){
+            state.isShowAlertCart = true
+            setTimeout(() => state.isShowAlertCart = false, 1500)
         }
     },
     actions:{
@@ -32,10 +41,18 @@ const cart = {
         },
         CART_REMOVE({commit}, skuId){
             commit('CART_REMOVE', skuId)
+        },
+        SET_CART_NAME({commit}, name){
+            commit('SET_CART_NAME', name)
+        },
+        CHANGE_CART_ALERT({commit}){
+            commit('CHANGE_CART_ALERT')
         }
     },
     getters:{
-        CART: state => state.cart
+        CART: state => state.cart,
+        isShowAlertCart: state => state.isShowAlertCart,
+        alertBasketName: state => state.alertBasketName
     },
     namespaced: true
 }

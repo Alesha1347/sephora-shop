@@ -71,13 +71,7 @@
                   <AddButtonToBasket
                   :product="product.regularChildSkus[numObj]"
                   />
-                <AddFav
-                :product="product"
-                class="product__page-fav"
-                />
               </div>
-
-          
           </div>
 
       </div>
@@ -85,10 +79,9 @@
 </template>
 
 <script>
-import AddFav from '../quicklook/AddFav.vue'
 import AddButtonToBasket from '../quicklook/AddButtonToBasket.vue'
 export default {
-    components:{AddFav, AddButtonToBasket},
+    components:{ AddButtonToBasket},
     props:{
         product:{
             type: Object,
