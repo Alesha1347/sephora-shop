@@ -1,5 +1,6 @@
 <template>
 <div class="products__wrap">
+    <MySpinner v-if="this.loaded"/>
     <ProductsMap/>
     <div class="products">
         <FilterProducts/>
@@ -8,9 +9,9 @@
             <ProductsShowig/>
         <MyPaginate
         :counts="totalCounts"
-        @changePage="SET_PAGE"
         :currentPage.sync="currentPage"
         :pageSize="pageSize"
+        @changePage="SET_PAGE"
         />
         </div>
   <div class="products__list">
@@ -28,7 +29,6 @@
         :pageSize="pageSize"
         />
     </div>
-
     </div>
 </div>
 </template>
@@ -50,7 +50,8 @@ export default {
         ...mapGetters({
             PRODUCTS: 'products/PRODUCTS',
             totalCounts: 'products/totalCounts',
-            pageSize: 'products/pageSize'
+            pageSize: 'products/pageSize',
+            loaded: 'products/loaded'
         })
     },
     methods:{
@@ -73,9 +74,11 @@ export default {
 .products__wrap {
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 .products{
     display: flex;
+    height: 100vh;
 }
 .products__content{
     border-left: 1px solid lightgray;

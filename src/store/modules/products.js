@@ -12,7 +12,8 @@ const products = {
         ph: null,
         totalCounts: 0,
         categoryName: '',
-        sort: ''
+        sort: '',
+        isLoaded: false
     },
     mutations:{
         // SET_CATEGORY(state, category){
@@ -52,6 +53,7 @@ const products = {
     },
     actions:{
         GET_PRODUCTS_FROM_API({commit}){
+            this.state.products.isLoaded = true
             const queryParams = {
                 currentPage: this.state.products.currentPage,
                 pageSize:  this.state.products.pageSize,
@@ -74,6 +76,7 @@ const products = {
                 commit('SET_CATEGORY_NAME', products.data.displayName)
             })
             .catch(err => console.log(err))
+            .finally(() => this.state.products.isLoaded = false)
         },
         // SET_CATEGORY({dispatch, commit}, category){
         //     commit('SET_CATEGORY', category)
@@ -111,6 +114,7 @@ const products = {
         totalCounts: state => state.totalCounts,
         CATEGORY_NAME: state => state.categoryName,
         pageSize: state => state.pageSize,
+        loaded: state => state.isLoaded
     },
     namespaced: true
 }

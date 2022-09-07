@@ -1,6 +1,8 @@
 <template>
   <div class="quicklook" @click="closeProduct">
 
+    <MySpinner v-if="this.isLoaded"/>
+
     <div class="quicklook__content">
     <ProductPageList
     class="quicklook__modal"
@@ -39,11 +41,14 @@ export default {
   },
   data(){
     return{
-      products: {}
+      products: {},
+      isLoaded: false
     }
   },
   methods:{
     getData(){
+      this.isLoaded = true
+      
     const queryParams = {
         productId: this.productId,
         preferedSku:  this.skuId
@@ -51,17 +56,16 @@ export default {
     this.$api.get('products/detail/', queryParams)
     .then(response =>{
         this.products = response.data
-        console.log(this.products)
     })
+    .catch(err => console.log(err))
+    .finally(() => { this.isLoaded = false })
     },
     getProduct(){
       this.product.find(product =>{
         if(product.skuId === this.skuId){
           this.arr = product
         }
-        console.log(product.skuId, this.skuId)
       })
-      console.log(this.arr)
     },
     closeProduct(e){
       if(e.target.className === e.currentTarget.className){

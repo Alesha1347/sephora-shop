@@ -25,11 +25,16 @@ export default {
     product:{
       type: Object,
       default: () => {}
+    },
+    skuId:{
+      type: String,
+      default:() => ''
     }
   },
   data(){
     return{
-      changeBtn: true
+      changeBtn: true,
+      skuIdArr: []
     }
   },
   computed:{
@@ -54,12 +59,25 @@ export default {
         } else {
           this.changeBtn = true
         }
-        console.log(item.skuId, product.skuId)
       })
     },
     cartRemove(product){
       this.CART_REMOVE(product)
       this.changeBtn = true
+    }
+  },
+  watch:{
+    'skuId': function(){
+      this.CART.find(item => {
+        if(item.skuId === this.skuId){
+          this.skuIdArr = this.skuId
+          this.changeBtn = false
+        } else if(this.skuIdArr.includes(this.skuId)){
+        this.changeBtn = false
+      } else {
+        this.changeBtn = true
+      }
+      })
     }
   }
 }

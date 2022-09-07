@@ -7,10 +7,10 @@
       <div class="header__chat"><b-icon icon="chat"></b-icon></div>
       <router-link :to="{name: 'favourites'}" class="header__favourites" ><b-icon :icon="favIcon"></b-icon></router-link>
       <router-link :to="{name: 'basket'}" class="header__basket"><b-icon :icon="basketIcon"></b-icon></router-link>
-      <MyAlert 
+      <MyAlertFav 
       :alertFavName="alertFavName"
       />
-    <MyAlert 
+    <MyAlertCart 
         :alertBasketName="alertBasketName"
       />
   </div>

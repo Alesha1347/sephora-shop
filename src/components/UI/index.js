@@ -3,7 +3,9 @@ import MyCarousel from './Carousel'
 import MyPaginate from './Paginate'
 import MyRangeSlider from './RangeSlider'
 import MySelect from './Select'
-import MyAlert from './Alert'
+import MyAlertFav from './AlertFav'
+import MyAlertCart from './AlertCart'
+import MySpinner from './Spinner'
 
 export default [
     MySearch,
@@ -11,5 +13,7 @@ export default [
     MyPaginate,
     MyRangeSlider,
     MySelect,
-    MyAlert
+    MyAlertFav,
+    MyAlertCart,
+    MySpinner
 ]

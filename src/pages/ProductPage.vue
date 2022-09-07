@@ -72,7 +72,6 @@ export default {
                 // this.product = JSON.parse(localStorage.getItem('productPage'))
                 this.categoryId = response.data.parentCategory.categoryId
                 this.product = response.data
-                console.log(response.data)
             })
             // }
             
@@ -94,7 +93,7 @@ export default {
         }
     },
     created(){
-        this.getData()
+        // this.getData()
         // this.similar = JSON.parse(localStorage.getItem('productPageSimilar'))
         // this.product = JSON.parse(localStorage.getItem('productPage'))
     },

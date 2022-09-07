@@ -39,7 +39,7 @@
                   </span>
               </div>
                     <div class="choice__name">
-                      Standart size
+                      Standart size:
                   </div>
               <div class="product__page-choice"
               v-if="product.regularChildSkus !== undefined"
@@ -70,6 +70,7 @@
               <div class="product__page-add">
                   <AddButtonToBasket
                   :product="product.regularChildSkus[numObj]"
+                  :skuId="product.regularChildSkus[numObj].skuId"
                   />
               </div>
           </div>
@@ -151,7 +152,7 @@ export default {
     width: 450px;
     justify-content: flex-start;
     max-height: 200px;
-    overflow: scroll;
+    overflow: auto;
 }
 .choice__name {
     margin-bottom: 10px;

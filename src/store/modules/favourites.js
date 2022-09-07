@@ -36,7 +36,7 @@ const favourites = {
     getters:{
         FAVOURITES: state => state.favourites,
         alertFavName: state => state.alertFavName,
-        isShowAlertFav: state => state.isShowAlert
+        isShowAlertFav: state => state.isShowAlertFav
     },
     namespaced: true
 }

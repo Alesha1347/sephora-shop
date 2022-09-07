@@ -21,7 +21,7 @@
       </div>
       <div v-if="isShowQuicklook" 
       class="product__quicklook"
-      @click="showProductInfo(product.productId, product.currentSku.skuId, product)"
+      @click="showProductInfo(product.productId, product.currentSku.skuId)"
       >
         Quicklook
       </div>
@@ -68,11 +68,10 @@ export default {
         ...mapActions({
             SET_PRODUCT_ID: 'reviews/SET_PRODUCT_ID'
         }),
-        showProductInfo(id, skuId, product){
+        showProductInfo(id, skuId){
             this.isShowProductInfo = true
             this.productId = id
             this.skuId = skuId
-            console.log(product)
         },
         setProductId(productId){
             this.SET_PRODUCT_ID(productId)
@@ -83,9 +82,12 @@ export default {
         'isShowProductInfo': function(){
             if(this.isShowProductInfo){
             document.documentElement.style.overflow = 'hidden'
+            let paddingOffset = 19 + 'px'
+            document.body.style.paddingRight = paddingOffset
             return
             }
             document.documentElement.style.overflow = 'auto'
+            document.body.style.paddingRight = 0
         }
     },
     mounted(){

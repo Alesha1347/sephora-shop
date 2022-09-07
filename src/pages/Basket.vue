@@ -12,7 +12,10 @@
       <div class="basket__background" v-else>
           <img class="basket__background-img" src="../assets/cart_empty_message.png">
           <div class="basket__background-title">
-          Добавить товары в корзину из <router-link to="/" class="basket__background-link">нашего каталога</router-link>
+          Вернуться <span
+          class="basket__background-link"
+          @click="backPage"
+          >назад</span>
           </div>
       </div>
   </div>
@@ -28,6 +31,11 @@ export default {
         ...mapGetters({
             CART: 'cart/CART'
         })
+    },
+    methods:{
+        backPage(){
+            this.$router.go(-1)
+        }
     }
 }
 </script>
@@ -58,9 +66,14 @@ export default {
     width: 400px;
     margin-bottom: 30px;
 }
+.basket__background-title{
+    font-size: 25px;
+}
 .basket__background-link{
-    color: black;
+    color: brown;
     font-weight: bold;
+    cursor: pointer;
+    font-size: 30px;
 }
 .basket__background-link:hover{
     text-decoration: none;

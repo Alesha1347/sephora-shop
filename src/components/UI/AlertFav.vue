@@ -5,23 +5,15 @@
         <div class="alert__custom"><div class="alert__name">{{alertFavName}}</div> добавлен в избранное</div>
     </div>
 
-    <div class="alert__container" v-if="isShowAlertCart">
-        <div class="alert__custom"><div class="alert__name">{{alertBasketName}}</div> добавлен в корзину</div>
-    </div>
-
 </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 export default {
-    name: 'MyAlert',
+    name: 'MyAlertFav',
     props:{
         alertFavName:{
-            type: String,
-            default:() => ''
-        },
-        alertBasketName:{
             type: String,
             default:() => ''
         }
@@ -29,11 +21,8 @@ export default {
     computed:{
         ...mapGetters({
             isShowAlertFav: 'favourites/isShowAlertFav',
-            isShowAlertCart: 'cart/isShowAlertCart',
-            // alertFavName: 'favourites/alertFavName',
-            // alertBasketName: 'cart/alertBasketName'
         })
-    },
+    }
 }
 </script>
 
