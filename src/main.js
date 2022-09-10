@@ -12,10 +12,17 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
+import * as VueGoogleMaps from 'vue2-google-maps'
+ 
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: '',
+  }
+})
+
 import VueCarousel from 'vue-carousel';
 Vue.use(VueCarousel);
 
-// let StarRating = require('vue-star-rating');
 import StarRating from 'vue-star-rating'
 Vue.component('star-rating', StarRating);
 

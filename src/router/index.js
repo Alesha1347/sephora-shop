@@ -6,6 +6,7 @@ import Main from '../pages/Main'
 import Favourites from '../pages/Favourites'
 import Basket from '../pages/Basket'
 import ProductPage from '../pages/ProductPage'
+import Stores from '../pages/Stores'
 
 Vue.use(VueRouter)
 
@@ -37,6 +38,11 @@ const routes = [
         path: '/product/:id/:skuId',
         component: ProductPage,
         name: 'productPage'
+      },
+      {
+        path: '/stores',
+        component: Stores,
+        name: 'stores'
       }
     ]
   },

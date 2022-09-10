@@ -6,6 +6,7 @@ import favourites from './modules/favourites'
 // import promo from './modules/promo'
 import cart from './modules/cart'
 import reviews from './modules/reviews'
+import stores from './modules/stores'
 
 Vue.use(Vuex)
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     favourites: favourites,
     cart: cart,
     reviews: reviews,
-    // promo: promo
+    // promo: promo,
+    stores: stores
   }
 })

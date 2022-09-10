@@ -13,7 +13,8 @@ const products = {
         totalCounts: 0,
         categoryName: '',
         sort: '',
-        isLoaded: false
+        isLoaded: false,
+        searchVal: ''
     },
     mutations:{
         // SET_CATEGORY(state, category){
@@ -49,11 +50,15 @@ const products = {
         },
         CHANGE_PAGE_SIZE(state, pageSize){
             state.pageSize = pageSize
+        },
+        SEARCH_TERM(state, searchVal){
+            state.searchVal = searchVal
         }
     },
     actions:{
         GET_PRODUCTS_FROM_API({commit}){
             this.state.products.isLoaded = true
+            this.state.products.currentPage = 1
             const queryParams = {
                 currentPage: this.state.products.currentPage,
                 pageSize:  this.state.products.pageSize,
@@ -65,15 +70,20 @@ const products = {
                 queryParams.ph = this.state.products.ph
             } if(this.state.products.sort){
                 queryParams.sortBy = this.state.products.sort
+            } if(this.state.products.searchVal){
+                queryParams.q = this.state.products.searchVal
             }
 
-            api.get('products/list/', queryParams)
+            const url = this.state.products.searchVal ? 'products/search/' : 'products/list/'
+
+            api.get(url, queryParams)
             .then(products =>{
                 commit('SET_PRODUCTS', products.data.products)
                 commit('TOTAL_COUNTS', products.data.totalProducts)
                 commit('SET_MAX_PRICE', products.data.refinements[products.data.refinements.length - 1].values[0].high)
                 commit('SET_MIN_PRICE', products.data.refinements[products.data.refinements.length - 1].values[1].low)
                 commit('SET_CATEGORY_NAME', products.data.displayName)
+                console.log(products)
             })
             .catch(err => console.log(err))
             .finally(() => this.state.products.isLoaded = false)
@@ -103,6 +113,10 @@ const products = {
         },
         CHANGE_PAGE_SIZE({commit, dispatch}, pageSize){
             commit('CHANGE_PAGE_SIZE', pageSize)
+            dispatch('GET_PRODUCTS_FROM_API')
+        },
+        SEARCH_TERM({commit, dispatch}, searchVal){
+            commit('SEARCH_TERM', searchVal)
             dispatch('GET_PRODUCTS_FROM_API')
         }
     },

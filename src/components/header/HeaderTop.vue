@@ -1,8 +1,12 @@
 <template>
   <div class="header__inner">
       <router-link class="header__name" to="/">S E P H O R A</router-link>
-      <MySearch/>
-      <div class="header__store">Store</div>
+      <MySearch
+      @searchProducts="SEARCH_TERM"
+      />
+      <router-link :to="{name: 'stores'}" class="header__store">
+      Store
+      </router-link>
       <div class="header__reg">Sign In</div>
       <div class="header__chat"><b-icon icon="chat"></b-icon></div>
       <router-link :to="{name: 'favourites'}" class="header__favourites" ><b-icon :icon="favIcon"></b-icon></router-link>
@@ -17,7 +21,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
     data(){
         return{
@@ -31,6 +35,11 @@ export default {
             alertFavName: 'favourites/alertFavName',
             FAVOURITES: 'favourites/FAVOURITES',
             alertBasketName: 'cart/alertBasketName'
+        })
+    },
+    methods:{
+        ...mapActions({
+            SEARCH_TERM: 'products/SEARCH_TERM'
         })
     },
     watch:{
@@ -73,6 +82,11 @@ export default {
 }
 .header__store {
     cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+.header__store:hover{
+    color: black;
 }
 .header__reg {
     cursor: pointer;

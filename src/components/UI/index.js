@@ -6,6 +6,7 @@ import MySelect from './Select'
 import MyAlertFav from './AlertFav'
 import MyAlertCart from './AlertCart'
 import MySpinner from './Spinner'
+import MyGoogleMap from './GoogleMap'
 
 export default [
     MySearch,
@@ -15,5 +16,6 @@ export default [
     MySelect,
     MyAlertFav,
     MyAlertCart,
-    MySpinner
+    MySpinner,
+    MyGoogleMap
 ]
