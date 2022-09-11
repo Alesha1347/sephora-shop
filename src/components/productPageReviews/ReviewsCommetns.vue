@@ -19,7 +19,9 @@
                   <div class="comments__info-descr">
                       {{ review.ReviewText }}
                   </div>
-                  <div class="comments__info-photos"
+
+                  <div class="comments__info-photos">
+                  <div class="comments__info-photo"
                   v-for="(photo, index) in review.Photos"
                   :key="index"
                   >
@@ -34,6 +36,7 @@
                     :src="photo.Sizes.normal.Url"
                     @click="closePhoto"
                     >
+                  </div>
                   </div>
 
               </div>
@@ -132,8 +135,12 @@ export default {
     font-size: 14px;
 }
 .comments__info-photos{
+    display: flex;
+}
+.comments__info-photo{
    position: relative;
-display: flex;
+    display: flex;
+    margin-right: 10px;
 }
 .photo__thumbnail{
     cursor: pointer;
@@ -145,10 +152,10 @@ display: flex;
 .photo__normal{
   display: flex;
   width: 50%;
-  height: 50%;
+  height: 100%;
   position: fixed;
     left: 25%;
-    top: 25%;
+    top: 0;
     right: 0;
     bottom: 0;
   justify-content: center;

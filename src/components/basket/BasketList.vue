@@ -42,9 +42,6 @@ export default {
       ...mapActions({
         CART_REMOVE: 'cart/CART_REMOVE'
       })
-    },
-    mounted(){
-      console.log(this.product)
     }
 }
 </script>

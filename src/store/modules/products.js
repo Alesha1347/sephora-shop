@@ -83,7 +83,6 @@ const products = {
                 commit('SET_MAX_PRICE', products.data.refinements[products.data.refinements.length - 1].values[0].high)
                 commit('SET_MIN_PRICE', products.data.refinements[products.data.refinements.length - 1].values[1].low)
                 commit('SET_CATEGORY_NAME', products.data.displayName)
-                console.log(products)
             })
             .catch(err => console.log(err))
             .finally(() => this.state.products.isLoaded = false)

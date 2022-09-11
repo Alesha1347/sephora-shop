@@ -43,7 +43,6 @@ const reviews = {
             })
         },
         CHANGE_PAGE_REVIEWS({commit, dispatch}, page){
-            console.log(page)
             commit('CHANGE_PAGE_REVIEWS', page)
             dispatch('GET_REVIEWS_FROM_API')
         },
@@ -54,7 +53,6 @@ const reviews = {
         SET_PRODUCT_ID({commit, dispatch}, productId){
             commit('SET_PRODUCT_ID', productId)
             dispatch('GET_REVIEWS_FROM_API')
-            console.log(productId)
         }
     },
     getters:{

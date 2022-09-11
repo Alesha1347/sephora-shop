@@ -1,5 +1,6 @@
 <template>
   <div class="product__page">
+    <MySpinner v-if="isShowLoaded"/>
       <ProductPageList
       :product="product"
       style="margin-bottom: 60px"
@@ -47,6 +48,7 @@ export default {
             similar: [],
             categoryId: '',
             currentPage: 1,
+            isShowLoaded: false
         }
     },
     computed:{
@@ -61,6 +63,7 @@ export default {
             CHANGE_PAGE_REVIEWS: 'reviews/CHANGE_PAGE_REVIEWS'
         }),
         getData(){
+            this.isShowLoaded = true
             const queryParams = {
                 productId: this.$route.params.id,
                 preferedSku:  this.$route.params.skuId
@@ -73,6 +76,8 @@ export default {
                 this.categoryId = response.data.parentCategory.categoryId
                 this.product = response.data
             })
+            .catch(err => console.log(err))
+            .finally(() => this.isShowLoaded = false)
             // }
             
         },
@@ -93,13 +98,15 @@ export default {
         }
     },
     created(){
-        // this.getData()
+        this.$store.state.reviews.ratingValue = ''
+        this.getData()
         // this.similar = JSON.parse(localStorage.getItem('productPageSimilar'))
         // this.product = JSON.parse(localStorage.getItem('productPage'))
     },
     mounted(){
         this.GET_REVIEWS_FROM_API()
-    }
+    },
+    
     // watch:{
     //     'categoryId': function(){
     //         this.getSimilar()

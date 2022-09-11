@@ -24,13 +24,20 @@
       v-for="category in childCategories"
       :key="category.categoryId"
       >
-      <div class="child__name" 
-      v-if="show"
-      >{{ category.displayName }}</div>
+    <router-link 
+    v-if="show" 
+    class="child__name" 
+    :to="{name: 'products'}"
+    >
+      <div @click="setCategory(category.categoryId)">
+      {{ category.displayName }}
+      </div>
+    </router-link>
       </div>
     </div>
 </div>
 </template>
+      
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
@@ -75,6 +82,9 @@ export default {
         getChildCategories(categoryId){
             this.show = true
             this.childCategories = JSON.parse(localStorage.getItem(`${categoryId}`))
+        },
+        kek(id){
+            console.log(id)
         }
     },
     mounted(){
@@ -126,11 +136,20 @@ export default {
     border: 1px solid black;
 }
 .child{
-    font-size: 25px;
-    cursor: pointer;
-    margin: 0px 20px;
+    margin-right: 40px;
 }
 .child:hover{
+    transform: scale(1.1);
+    color: brown;
+}
+.child__name{
+    font-size: 25px;
+    cursor: pointer;
+    margin: 20px 0px;
+    color: black;
+    text-decoration: none;
+}
+.child__name:hover{
     transform: scale(1.1);
     color: brown;
 }

@@ -3,9 +3,7 @@
       <ProductsNav/>
       <div class="filter__products-name">Filters</div>
       <div class="filter__products-params">
-          <div class="">Sale</div>
-          <div class="">Sort By</div>
-          <div class="" @click="isShowPrice = !isShowPrice">Price</div>
+          <div class="filter__price" @click="isShowPrice = !isShowPrice">Price</div>
           <MyRangeSlider
           v-if="isShowPrice"
           :minPrice="this.MINPRICE"
@@ -65,5 +63,8 @@ export default {
 }
 .filter__products-params {
     font-weight: bold;
+}
+.filter__price{
+    cursor: pointer;
 }
 </style>

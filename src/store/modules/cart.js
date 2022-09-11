@@ -31,7 +31,6 @@ const cart = {
     actions:{
         ADD_TO_BASKET({commit}, product){
             commit('SET_CART', product)
-            console.log(product)
         },
         PLUS_QTY({commit}, skuId){
             commit('PLUS_QTY', skuId)
